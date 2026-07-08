@@ -1,4 +1,6 @@
 node_modules/
 database.sqlite
 .env
-npm-debug.log*
+target/
+.quarkus/
+.m2/

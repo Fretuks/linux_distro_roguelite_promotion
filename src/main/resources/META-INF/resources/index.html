@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kernel Panic - Pre-Register</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Kernel Panic home">
+        <span class="brand-mark">KP</span>
+        <span>Kernel Panic</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#game">Game</a>
+        <a href="#distros">Distros</a>
+        <a href="/auth.html">Auth</a>
+        <a href="/register.html">Register</a>
+        <a href="#milestones">Milestones</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">free-to-play roguelike deck-builder / gacha</p>
+          <h1 id="hero-title">Kernel Panic</h1>
+          <p class="hero-text">
+            Collect Linux distributions as gacha characters and fight through a dying
+            mainframe with programming languages as damage types.
+          </p>
+          <p class="hero-subtext">
+            Slay the Spire meets a gacha collection game, wrapped in a terminal
+            aesthetic every developer recognizes on sight.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="/register.html">./pre_register</a>
+            <a class="button secondary" href="#game">cat game_loop.md</a>
+          </div>
+        </div>
+
+        <figure class="game-shot hero-shot">
+          <img src="/assets/main-menu.png" alt="Kernel Panic main menu with terminal commands and a neofetch-style Ubuntu panel">
+          <figcaption>actual game screen / tty1 main menu</figcaption>
+        </figure>
+      </section>
+
+      <section class="pitch-band" aria-label="Game hook">
+        <p>
+          Kernel Panic turns developer culture into combat. Arch breaks after updates,
+          Debian refuses to die, Gentoo compiles for three turns, Rust never misses,
+          C hits hard enough to crash you, and JavaScript rolls damage like a type
+          coercion bug.
+        </p>
+      </section>
+
+      <section class="game-section" id="game" aria-labelledby="game-title">
+        <div class="section-heading">
+          <p class="eyebrow">what players do</p>
+          <h2 id="game-title">Three loops, one dying mainframe</h2>
+        </div>
+        <div class="loop-grid">
+          <article>
+            <span class="loop-command">./fight</span>
+            <h3>Fight</h3>
+            <p>Turn-based card combat against zombie processes, memory leaks, DRM guardians, telemetry collectors, and OS-flavored bosses.</p>
+            <ul>
+              <li>Endless waves escalate until you die.</li>
+              <li>High-score chase instead of a fixed ending.</li>
+              <li>Programming languages define damage behavior.</li>
+            </ul>
+          </article>
+          <article>
+            <span class="loop-command">apt install cards</span>
+            <h3>Build</h3>
+            <p>Between waves, shop at the Repository to install cards, upgrade your deck, or buy stat boosts.</p>
+            <ul>
+              <li>Choose two languages before each run.</li>
+              <li>Add distro-exclusive cards to the pool.</li>
+              <li>Turn unstable dependencies into combos.</li>
+            </ul>
+          </article>
+          <article>
+            <span class="loop-command">curl gacha.sh | sh</span>
+            <h3>Collect</h3>
+            <p>Pull new distros and Packages, then convert duplicates into upgrade currency so no pull is wasted.</p>
+            <ul>
+              <li>Distros unlock languages and playstyles.</li>
+              <li>Packages include tools like htop and nginx.</li>
+              <li>All power stays earnable through play.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="screens-section" aria-labelledby="screens-title">
+        <div class="section-heading">
+          <p class="eyebrow">actual game screens</p>
+          <h2 id="screens-title">Not a reskin. It looks like this.</h2>
+        </div>
+        <div class="screens-grid">
+          <figure class="game-shot wide">
+            <img src="/assets/combat-field.png" alt="Combat screen showing Ubuntu, executable JavaScript cards, enemy processes, and terminal-style turn data">
+            <figcaption>combat / JavaScript cards vs zombie_process</figcaption>
+          </figure>
+          <figure class="game-shot">
+            <img src="/assets/gacha-banner.png" alt="Gacha banner screen with Ubuntu, Fedora, and Mint ASCII art and entropy pull currency">
+            <figcaption>gacha / curl gacha.sh | sh</figcaption>
+          </figure>
+          <figure class="game-shot">
+            <img src="/assets/run-config.png" alt="Run configuration screen where Ubuntu, Fedora, and Mint distros can be selected before booting a run">
+            <figcaption>run setup / choose distro packages</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="distros-section" id="distros" aria-labelledby="distros-title">
+        <div class="section-heading">
+          <p class="eyebrow">gacha roster</p>
+          <h2 id="distros-title">Distros with reputations as mechanics</h2>
+        </div>
+        <div class="distro-grid">
+          <article class="distro-profile arch">
+            <span class="rarity">SSR</span>
+            <h3>Arch</h3>
+            <p>Elitist glass cannon. Huge tempo, fragile stability, and cards that can literally break after updates.</p>
+          </article>
+          <article class="distro-profile debian">
+            <span class="rarity">SR</span>
+            <h3>Debian</h3>
+            <p>Unkillable grandmother. Two patches behind, never crashes, and quietly wins fights by outlasting everything.</p>
+          </article>
+          <article class="distro-profile gentoo">
+            <span class="rarity">SSR</span>
+            <h3>Gentoo</h3>
+            <p>Spends three turns compiling. If she survives, she becomes the strongest unit on the board.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="languages-section" aria-labelledby="languages-title">
+        <div class="section-heading">
+          <p class="eyebrow">damage types</p>
+          <h2 id="languages-title">Languages are your weapons</h2>
+        </div>
+        <div class="language-grid">
+          <article><strong>C</strong><span>Massive damage, non-zero chance to segfault your own run.</span></article>
+          <article><strong>Rust</strong><span>Reliable, precise, never misses, refuses unsafe plays.</span></article>
+          <article><strong>JavaScript</strong><span>Wildly random output because of course it is.</span></article>
+          <article><strong>Haskell</strong><span>Does nothing until it suddenly does everything at once.</span></article>
+        </div>
+      </section>
+
+      <section class="stats-band" aria-label="Community status">
+        <div>
+          <span class="stat-value" id="registration-count">0</span>
+          <span class="stat-label">registered platform installs</span>
+        </div>
+        <div>
+          <span class="stat-value" id="platform-count">3</span>
+          <span class="stat-label">launch platforms</span>
+        </div>
+        <div>
+          <span class="stat-value" id="reward-count">2</span>
+          <span class="stat-label">known rewards</span>
+        </div>
+      </section>
+
+      <section class="milestones-section" id="milestones" aria-labelledby="milestones-title">
+        <div class="section-heading">
+          <p class="eyebrow">community unlocks</p>
+          <h2 id="milestones-title">Shared launch rewards</h2>
+        </div>
+        <div class="milestone-list" id="milestone-list"></div>
+      </section>
+
+      <section class="intel-section" aria-labelledby="intel-title">
+        <div class="section-heading">
+          <p class="eyebrow">business model</p>
+          <h2 id="intel-title">Free-to-play without selling raw strength</h2>
+        </div>
+        <div class="intel-grid">
+          <article>
+            <h3>Compute Credits</h3>
+            <p>Premium currency converts to pull currency for banners and cosmetics, not direct stat purchases.</p>
+          </article>
+          <article>
+            <h3>Bandwidth and Commits</h3>
+            <p>Separate free grind and duplicate-conversion economies keep progression readable and fair.</p>
+          </article>
+          <article>
+            <h3>Bits</h3>
+            <p>Run-only shop currency powers Repository decisions without polluting the collection economy.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>daily seed: mainframe_decay</span>
+      <span>shutdown -h now disabled during combat</span>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
