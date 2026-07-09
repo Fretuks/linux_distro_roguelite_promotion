@@ -79,10 +79,9 @@ public class DatabaseService {
 
     private void seed(Connection connection) throws SQLException {
         List<String> platforms = List.of("Windows", "Linux", "Mobile (Android)");
-        try (PreparedStatement insert = connection.prepareStatement("INSERT INTO platforms (name) VALUES (?) ON CONFLICT (name) DO NOTHING")) {
-            for (String platform : platforms) {
-                insert.setString(1, platform);
-                insert.executeUpdate();
+        for (String platform : platforms) {
+            if (findOne("SELECT id FROM platforms WHERE name = ?", platform) == null) {
+                execute(connection, "INSERT INTO platforms (name) VALUES (?)", platform);
             }
         }
 
@@ -175,9 +174,12 @@ public class DatabaseService {
     }
 
     private static long insertAndReturnId(Connection connection, String sql, Object... params) throws SQLException {
-        try (PreparedStatement statement = prepare(connection, sql + " RETURNING id", params);
-             ResultSet resultSet = statement.executeQuery()) {
-            return resultSet.next() ? resultSet.getLong(1) : 0;
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            bind(statement, params);
+            statement.executeUpdate();
+            try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                return resultSet.next() ? resultSet.getLong(1) : 0;
+            }
         }
     }
 
@@ -189,9 +191,13 @@ public class DatabaseService {
 
     private static PreparedStatement prepare(Connection connection, String sql, Object... params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
+        bind(statement, params);
+        return statement;
+    }
+
+    private static void bind(PreparedStatement statement, Object... params) throws SQLException {
         for (int i = 0; i < params.length; i++) {
             statement.setObject(i + 1, params[i]);
         }
-        return statement;
     }
 }

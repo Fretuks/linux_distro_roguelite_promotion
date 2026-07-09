@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kernel Panic - Auth</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Kernel Panic home">
+        <span class="brand-mark">KP</span>
+        <span>Kernel Panic</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="/">Main</a>
+        <a href="/register.html">Register</a>
+        <a href="/auth.html">Auth</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="auth-page" aria-labelledby="auth-title">
+        <div class="section-heading">
+          <p class="eyebrow">registered player auth</p>
+          <h1 id="auth-title">Login to the private boot log</h1>
+          <p class="hero-text">
+            Use the same username and email from pre-registration. Authenticated
+            players can inspect extra game intel before launch.
+          </p>
+        </div>
+
+        <div class="auth-grid">
+          <form class="auth-form" id="auth-form">
+            <label>
+              Username
+              <input id="auth-username" name="username" autocomplete="username" required>
+            </label>
+            <label>
+              Email
+              <input id="auth-email" name="email" type="email" autocomplete="email" required>
+            </label>
+            <div class="auth-actions">
+              <button class="button primary" type="submit">jwt login</button>
+              <button class="button secondary" id="auth-logout" type="button">logout</button>
+            </div>
+            <p class="form-message" id="auth-message" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="auth-session" id="auth-session">
+            <span class="terminal-label">session</span>
+            <strong>not authenticated</strong>
+            <span>role: none</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="private-intel-section" aria-labelledby="private-intel-title">
+        <div class="section-heading">
+          <p class="eyebrow">authenticated intel</p>
+          <h2 id="private-intel-title">Game details unlocked after login</h2>
+        </div>
+        <div class="private-intel-grid" id="private-intel">
+          <article>
+            <h3>Access required</h3>
+            <p>Log in with your registered shell account to reveal private build notes.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>auth mode: bearer jwt</span>
+      <span>registered players only</span>
+    </footer>
+
+    <script src="/auth.js"></script>
+  </body>
+</html>

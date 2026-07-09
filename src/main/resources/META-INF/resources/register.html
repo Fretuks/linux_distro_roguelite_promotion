@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kernel Panic - Register</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Kernel Panic home">
+        <span class="brand-mark">KP</span>
+        <span>Kernel Panic</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="/">Main</a>
+        <a href="/register.html">Register</a>
+        <a href="/auth.html">Auth</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="register-page" id="register" aria-labelledby="register-title">
+        <div class="section-heading">
+          <p class="eyebrow">pre-register</p>
+          <h1 id="register-title">Reserve your shell account</h1>
+          <p class="hero-text">
+            Choose your launch platform, create a shell account, then use the same
+            username and email on the auth page to reveal private game details.
+          </p>
+        </div>
+
+        <form class="register-form" id="register-form">
+          <label>
+            Username
+            <input id="username" name="username" autocomplete="nickname" required maxlength="40">
+          </label>
+          <label>
+            Email
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </label>
+          <fieldset>
+            <legend>Platforms</legend>
+            <div class="platform-list" id="platform-list"></div>
+          </fieldset>
+          <label class="checkbox-row">
+            <input id="newsletter" name="newsletter_optin" type="checkbox">
+            <span>Send me patch notes, pull banners, and community unlocks</span>
+          </label>
+          <button class="button primary form-submit" type="submit">sudo pre-register</button>
+          <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="stats-band" aria-label="Community status">
+        <div>
+          <span class="stat-value" id="registration-count">0</span>
+          <span class="stat-label">registered platform installs</span>
+        </div>
+        <div>
+          <span class="stat-value" id="platform-count">3</span>
+          <span class="stat-label">launch platforms</span>
+        </div>
+        <div>
+          <span class="stat-value" id="reward-count">2</span>
+          <span class="stat-label">known rewards</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>supported targets: windows / linux / android</span>
+      <span>auth unlocks after registration</span>
+    </footer>
+
+    <script src="/register.js"></script>
+  </body>
+</html>
