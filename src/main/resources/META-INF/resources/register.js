@@ -95,7 +95,7 @@ registerForm.addEventListener("submit", async (event) => {
     );
 
     registerForm.reset();
-    setMessage("Pre-registration complete. Use Auth to unlock private game intel.");
+    setMessage("Pre-registration complete. Check your inbox, then use Auth to unlock private game intel.");
     await refreshStats();
   } catch (error) {
     setMessage(error.message, true);

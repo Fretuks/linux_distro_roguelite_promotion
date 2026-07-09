@@ -28,6 +28,14 @@ $env:ADMIN_PASSWORD = "secret"
 $env:DB_URL = "jdbc:postgresql://localhost:5432/linux_distro_roguelite_promotion"
 $env:DB_USERNAME = "postgres"
 $env:DB_PASSWORD = "postgres"
+$env:TOKEN_SECRET = "<registration-token-secret>"
+$env:SMTP_HOST = "mail.fretux.ch"
+$env:SMTP_PORT = "587"
+$env:SMTP_SECURE = "0"
+$env:SMTP_USER = "no-reply@fretux.ch"
+$env:SMTP_PASS = "<smtp-password>"
+$env:MAIL_FROM = "Fretux <no-reply@fretux.ch>"
+$env:BASE_URL = "localhost:3000"
 mvn quarkus:dev
 ```
 
@@ -66,6 +74,23 @@ Die PostgreSQL-Verbindung wird ueber Umgebungsvariablen konfiguriert:
 - `DB_URL`, Standard: `jdbc:postgresql://localhost:5432/linux_distro_roguelite_promotion`
 - `DB_USERNAME`, Standard: `postgres`
 - `DB_PASSWORD`, Standard: `postgres`
+
+## Mailversand
+
+`POST /users` verschickt nach erfolgreicher Registrierung eine Bestaetigungsmail. Die E-Mail-Adresse ist Pflicht und kann wegen des eindeutigen Datenbank-Constraints nur einmal verwendet werden. Wenn der Mailversand fehlschlaegt, wird der neu angelegte Nutzer wieder entfernt und die API antwortet mit `502`.
+
+Der SMTP-Zugang wird ueber Umgebungsvariablen konfiguriert:
+
+- `TOKEN_SECRET`: Secret fuer den signierten Registrierungslink
+- `SMTP_HOST`, Standard: `mail.fretux.ch`
+- `SMTP_PORT`, Standard: `587`
+- `SMTP_SECURE`, Standard: `false`; fuer Port 587 kann `0` verwendet werden
+- `SMTP_USER`, Standard: `no-reply@fretux.ch`
+- `SMTP_PASS`: SMTP-Passwort
+- `MAIL_FROM`, Standard: `Fretux <no-reply@fretux.ch>`
+- `BASE_URL`, Standard: `http://localhost:3000`
+
+In Tests ist `quarkus.mailer.mock=true` gesetzt, damit keine echte E-Mail verschickt wird.
 
 Das Schema entspricht dem Klassendiagramm:
 

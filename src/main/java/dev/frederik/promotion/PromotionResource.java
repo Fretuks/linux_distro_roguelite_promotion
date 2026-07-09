@@ -24,10 +24,12 @@ import java.util.Map;
 @Produces(MediaType.APPLICATION_JSON)
 public class PromotionResource {
     private final DatabaseService database;
+    private final RegistrationEmailService registrationEmailService;
 
     @Inject
-    public PromotionResource(DatabaseService database) {
+    public PromotionResource(DatabaseService database, RegistrationEmailService registrationEmailService) {
         this.database = database;
+        this.registrationEmailService = registrationEmailService;
     }
 
     @GET
@@ -52,6 +54,14 @@ public class PromotionResource {
         } catch (RuntimeException exception) {
             throw mapConflict(exception, "username or email already exists.");
         }
+
+        try {
+            registrationEmailService.sendRegistrationMail(id, username, email);
+        } catch (RuntimeException exception) {
+            database.execute("DELETE FROM users WHERE id = ?", id);
+            throw new ApiException(502, "Registration email could not be sent. Please try again later.");
+        }
+
         return Response.status(Response.Status.CREATED).entity(userById(id)).build();
     }
 

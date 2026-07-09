@@ -1,7 +1,10 @@
 package dev.frederik.promotion;
 
+import io.quarkus.mailer.Mail;
+import io.quarkus.mailer.MockMailbox;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;
@@ -20,6 +23,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PromotionIntegrationTest {
     @Inject
     DataSource dataSource;
+
+    @Inject
+    MockMailbox mailbox;
+
+    @BeforeEach
+    void clearMailbox() {
+        mailbox.clear();
+    }
 
     @Test
     void platformsEndpointReturnsCurrentLaunchTargetsFromIsolatedDatabase() throws Exception {
@@ -67,6 +78,48 @@ class PromotionIntegrationTest {
         Map<String, Object> row = findUserInDatabase(username);
         assertEquals(email, row.get("email"));
         assertEquals(Boolean.TRUE, row.get("newsletter_optin"));
+
+        List<Mail> sent = mailbox.getMailsSentTo(email);
+        assertEquals(1, sent.size());
+        assertEquals("Kernel Panic pre-registration", sent.get(0).getSubject());
+        assertTrue(sent.get(0).getText().contains("http://localhost:3000/auth.html?registration_token="));
+    }
+
+    @Test
+    void creatingSecondUserWithSameEmailIsRejected() throws Exception {
+        // Given: an email address already belongs to a pre-registered user.
+        String suffix = Long.toString(System.nanoTime());
+        String email = "unique_" + suffix + "@example.com";
+        Map<String, Object> firstPayload = Map.of(
+                "username", "first_" + suffix,
+                "email", email,
+                "newsletter_optin", false);
+
+        given()
+                .contentType("application/json")
+                .body(firstPayload)
+                .when()
+                .post("/users")
+                .then()
+                .statusCode(201);
+
+        // When: another username tries to reuse the same email address.
+        Map<String, Object> secondPayload = Map.of(
+                "username", "second_" + suffix,
+                "email", email,
+                "newsletter_optin", false);
+
+        given()
+                .contentType("application/json")
+                .body(secondPayload)
+                .when()
+                .post("/users")
+                .then()
+                .statusCode(409);
+
+        // Then: the email address is still stored only once and no second mail is sent.
+        assertEquals(1, countUsersByEmail(email));
+        assertEquals(1, mailbox.getMailsSentTo(email).size());
     }
 
     private int countCurrentPlatformsInDatabase() throws Exception {
@@ -95,6 +148,21 @@ class PromotionIntegrationTest {
                 return Map.of(
                         "email", resultSet.getString("email"),
                         "newsletter_optin", resultSet.getBoolean("newsletter_optin"));
+            }
+        }
+    }
+
+    private int countUsersByEmail(String email) throws Exception {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("""
+                     SELECT COUNT(*)
+                     FROM users
+                     WHERE email = ?
+                     """)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                resultSet.next();
+                return resultSet.getInt(1);
             }
         }
     }
